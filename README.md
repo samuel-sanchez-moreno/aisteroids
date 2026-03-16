@@ -7,6 +7,7 @@ A collection of AI agent skills for software engineering workflows.
 | Skill | Description |
 |-------|-------------|
 | [dt-skill-creator](skills/dt-skill-creator/) | Create, test, and iterate on Dynatrace-safe skills with built-in security guardrails and eval pipeline |
+| [mcp-builder](skills/mcp-builder/) | Build production-quality MCP servers for internal services — Python (FastMCP) or TypeScript, with DT API/dtctl patterns |
 | [service-health-check](skills/service-health-check/) | Kubernetes service health check via Dynatrace `dtctl` — pods, logs, problems, endpoints |
 
 ## Installation
