@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mcp-builder — Aisteroids</title>
+  <meta name="description" content="Guide for creating high-quality MCP (Model Context Protocol) servers that let AI agents interact with internal services through well-designed tools. Use when…" />
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../" class="site-logo">🌟 aisteroids</a>
+    <a href="https://github.com/samuel-sanchez-moreno/aisteroids" class="header-link" target="_blank" rel="noopener">GitHub →</a>
+  </header>
+  <main>
+        <div class="skill-detail">
+          <nav class="breadcrumb"><a href="../../">← All skills</a></nav>
+          <h1>mcp-builder</h1>
+          <p class="skill-description">Guide for creating high-quality MCP (Model Context Protocol) servers that let AI agents interact with internal services through well-designed tools. Use when building MCP servers to integrate internal APIs or services (Dynatrace, SPINE, Lima, or any service), in Python (FastMCP) or TypeScript (MCP SDK). Triggers include: &quot;build an MCP server&quot;, &quot;create MCP tools for X&quot;, &quot;integrate X with Claude via MCP&quot;, &quot;add MCP support for the Y API&quot;, or &quot;help me write an MCP server&quot;.</p>
+                  <section class="install-section">
+          <h2>Install</h2>
+          <div class="code-block">
+            <pre><code># Copy directly into your project
+git clone https://github.com/samuel-sanchez-moreno/aisteroids.git .aisteroids
+cp -r .aisteroids/skills/mcp-builder .github/skills/</code></pre>
+            <button class="copy-btn" aria-label="Copy command">Copy</button>
+          </div>
+          <div class="code-block">
+            <pre><code># Or use a git submodule for automatic updates
+git submodule add https://github.com/samuel-sanchez-moreno/aisteroids.git .aisteroids
+ln -s ../.aisteroids/skills/mcp-builder .github/skills/mcp-builder</code></pre>
+            <button class="copy-btn" aria-label="Copy command">Copy</button>
+          </div>
+        </section>
+
+        </div>
+
+  </main>
+  <footer>
+    <p>
+      <a href="https://github.com/samuel-sanchez-moreno/aisteroids" target="_blank" rel="noopener">samuel-sanchez-moreno/aisteroids</a>
+      · Apache-2.0
+    </p>
+  </footer>
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var code = btn.previousElementSibling.textContent;
+        navigator.clipboard.writeText(code).then(function() {
+          btn.textContent = 'Copied!';
+          setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
