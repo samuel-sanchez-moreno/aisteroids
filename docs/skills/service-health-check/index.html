@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>service-health-check — Aisteroids</title>
+  <meta name="description" content="Check the health status of a SPINE/Lima microservice in a Dynatrace-monitored Kubernetes environment using dtctl. Produces a structured report with pod status,…" />
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../" class="site-logo">🌟 aisteroids</a>
+    <a href="https://github.com/samuel-sanchez-moreno/aisteroids" class="header-link" target="_blank" rel="noopener">GitHub →</a>
+  </header>
+  <main>
+        <div class="skill-detail">
+          <nav class="breadcrumb"><a href="../../">← All skills</a></nav>
+          <h1>service-health-check</h1>
+          <p class="skill-description">Check the health status of a SPINE/Lima microservice in a Dynatrace-monitored Kubernetes environment using dtctl. Produces a structured report with pod status, pod restarts, error and warning logs, active problems, HTTP endpoint response time medians, and 5xx error counts. Use this skill whenever the user asks about service status, health, pod state, error logs, response times, or availability of any service in dev, sprint, or prod — even if they don't use the word &quot;health check&quot;. Triggers include phrases like &quot;how is X doing in dev&quot;, &quot;check X in prod&quot;, &quot;is X healthy&quot;, &quot;show me errors for X&quot;, &quot;status of X&quot;, &quot;any problems with X&quot;, &quot;pods for X&quot;, or &quot;response times of X&quot;. Also use when the user asks to monitor, diagnose, or triage a service.</p>
+                  <section class="install-section">
+          <h2>Install</h2>
+          <div class="code-block">
+            <pre><code># Copy directly into your project
+git clone https://github.com/samuel-sanchez-moreno/aisteroids.git .aisteroids
+cp -r .aisteroids/skills/service-health-check .github/skills/</code></pre>
+            <button class="copy-btn" aria-label="Copy command">Copy</button>
+          </div>
+          <div class="code-block">
+            <pre><code># Or use a git submodule for automatic updates
+git submodule add https://github.com/samuel-sanchez-moreno/aisteroids.git .aisteroids
+ln -s ../.aisteroids/skills/service-health-check .github/skills/service-health-check</code></pre>
+            <button class="copy-btn" aria-label="Copy command">Copy</button>
+          </div>
+        </section>
+
+        </div>
+
+  </main>
+  <footer>
+    <p>
+      <a href="https://github.com/samuel-sanchez-moreno/aisteroids" target="_blank" rel="noopener">samuel-sanchez-moreno/aisteroids</a>
+      · Apache-2.0
+    </p>
+  </footer>
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var code = btn.previousElementSibling.textContent;
+        navigator.clipboard.writeText(code).then(function() {
+          btn.textContent = 'Copied!';
+          setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

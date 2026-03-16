@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aisteroids — AI Agent Skills</title>
+  <meta name="description" content="A marketplace of AI agent skills for software engineering workflows." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="./" class="site-logo">🌟 aisteroids</a>
+    <a href="https://github.com/samuel-sanchez-moreno/aisteroids" class="header-link" target="_blank" rel="noopener">GitHub →</a>
+  </header>
+  <main>
+<section class="hero">
+  <h1>Aisteroids</h1>
+  <p class="tagline">A collection of AI agent skills for software engineering workflows.</p>
+</section>
+<section class="skills-grid">
+  <article class="skill-card">
+    <h2><a href="skills/dt-skill-creator/">dt-skill-creator</a></h2>
+    <p>Create, modify, and evaluate Dynatrace-safe skills with built-in security guardrails. Use this skill whenever someone wants to create a new skill for the…</p>
+    <a class="card-link" href="skills/dt-skill-creator/">View skill →</a>
+  </article>
+  <article class="skill-card">
+    <h2><a href="skills/service-health-check/">service-health-check</a></h2>
+    <p>Check the health status of a SPINE/Lima microservice in a Dynatrace-monitored Kubernetes environment using dtctl. Produces a structured report with pod status,…</p>
+    <a class="card-link" href="skills/service-health-check/">View skill →</a>
+  </article>
+</section>
+
+  </main>
+  <footer>
+    <p>
+      <a href="https://github.com/samuel-sanchez-moreno/aisteroids" target="_blank" rel="noopener">samuel-sanchez-moreno/aisteroids</a>
+      · Apache-2.0
+    </p>
+  </footer>
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var code = btn.previousElementSibling.textContent;
+        navigator.clipboard.writeText(code).then(function() {
+          btn.textContent = 'Copied!';
+          setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

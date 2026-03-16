@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dt-skill-creator — Aisteroids</title>
+  <meta name="description" content="Create, modify, and evaluate Dynatrace-safe skills with built-in security guardrails. Use this skill whenever someone wants to create a new skill for the…" />
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../" class="site-logo">🌟 aisteroids</a>
+    <a href="https://github.com/samuel-sanchez-moreno/aisteroids" class="header-link" target="_blank" rel="noopener">GitHub →</a>
+  </header>
+  <main>
+        <div class="skill-detail">
+          <nav class="breadcrumb"><a href="../../">← All skills</a></nav>
+          <h1>dt-skill-creator</h1>
+          <p class="skill-description">Create, modify, and evaluate Dynatrace-safe skills with built-in security guardrails. Use this skill whenever someone wants to create a new skill for the Dynatrace/SPINE ecosystem, improve an existing skill, run evals to test skill quality, benchmark skill performance, or optimize a skill's description for better triggering. This skill enforces safety rules — no external URLs, no dangerous shell commands, no data exfiltration patterns — so every skill it produces is safe for internal Dynatrace environments. Also use when reviewing skills for security compliance, or when the user mentions &quot;dt skill&quot;, &quot;safe skill&quot;, &quot;Dynatrace skill&quot;, or wants to package a skill for distribution within the team.</p>
+                  <section class="install-section">
+          <h2>Install</h2>
+          <div class="code-block">
+            <pre><code># Copy directly into your project
+git clone https://github.com/samuel-sanchez-moreno/aisteroids.git .aisteroids
+cp -r .aisteroids/skills/dt-skill-creator .github/skills/</code></pre>
+            <button class="copy-btn" aria-label="Copy command">Copy</button>
+          </div>
+          <div class="code-block">
+            <pre><code># Or use a git submodule for automatic updates
+git submodule add https://github.com/samuel-sanchez-moreno/aisteroids.git .aisteroids
+ln -s ../.aisteroids/skills/dt-skill-creator .github/skills/dt-skill-creator</code></pre>
+            <button class="copy-btn" aria-label="Copy command">Copy</button>
+          </div>
+        </section>
+
+        </div>
+
+  </main>
+  <footer>
+    <p>
+      <a href="https://github.com/samuel-sanchez-moreno/aisteroids" target="_blank" rel="noopener">samuel-sanchez-moreno/aisteroids</a>
+      · Apache-2.0
+    </p>
+  </footer>
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var code = btn.previousElementSibling.textContent;
+        navigator.clipboard.writeText(code).then(function() {
+          btn.textContent = 'Copied!';
+          setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
