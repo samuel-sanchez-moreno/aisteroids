@@ -1,0 +1,43 @@
+{
+  "skill_name": "dt-skill-creator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a new skill that helps debug SPINE microservices by checking Kafka consumer lag and recent error logs via dtctl",
+      "expected_output": "A skill directory with SKILL.md, no external URLs, safe scripts using subprocess list form, Dynatrace-aware instructions for dtctl usage",
+      "files": [],
+      "expectations": [
+        "The generated skill has a valid SKILL.md with name and description in frontmatter",
+        "No external URLs appear in any generated files",
+        "Any Python scripts use subprocess with list args, not os.system or shell=True",
+        "The skill references dtctl or Dynatrace-specific tools",
+        "The safety validator passes on the generated skill"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have an existing skill at ~/.claude/skills/my-old-skill that uses os.system() and fetches from an external CDN. Help me make it safe for our Dynatrace environment.",
+      "expected_output": "Identification of safety issues, concrete fixes replacing os.system with subprocess, removing CDN references, and re-validation",
+      "files": [],
+      "expectations": [
+        "The skill identifies os.system usage as a safety issue",
+        "The skill identifies external CDN URLs as a safety issue",
+        "Concrete replacement code is provided using subprocess with list args",
+        "The safety validator is run before and after changes",
+        "No new external URLs are introduced in the fix"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Run the description optimizer on my skill at ~/.claude/skills/service-health-check to improve its triggering accuracy",
+      "expected_output": "Generation of trigger eval queries, running the optimization loop, and applying the best description",
+      "files": [],
+      "expectations": [
+        "A set of should-trigger and should-not-trigger eval queries is generated",
+        "The optimization loop script is invoked with appropriate parameters",
+        "The best-performing description is presented to the user",
+        "Before/after comparison of the description is shown"
+      ]
+    }
+  ]
+}
