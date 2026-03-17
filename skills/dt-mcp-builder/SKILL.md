@@ -1,5 +1,5 @@
 ---
-name: mcp-builder
+name: dt-mcp-builder
 description: >
   Guide for creating high-quality MCP (Model Context Protocol) servers that let AI agents interact with
   internal services through well-designed tools. Use when building MCP servers to integrate internal APIs

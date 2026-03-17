@@ -1,5 +1,5 @@
 ---
-name: service-health-check
+name: dt-service-health-check
 description: >-
   Check the health status of a SPINE/Lima microservice in a Dynatrace-monitored Kubernetes environment using dtctl.
   Produces a structured report with pod status, pod restarts, error and warning logs, active problems, HTTP endpoint
