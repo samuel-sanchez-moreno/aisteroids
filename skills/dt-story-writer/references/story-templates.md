@@ -57,27 +57,27 @@ Use for technical stories aimed at improving system resilience, removing legacy 
 ```
 ## Why?
 
-[Business or technical justification — what risk, cost, or fragility does this address? Be specific about the impact of NOT doing this.]
+[One paragraph — business or technical justification. Be specific about the impact of NOT doing this.]
 
 ## What?
 
-[What exactly needs to change — scope and boundaries. Be explicit about what is in scope and what is not.]
+[One paragraph — what exactly needs to change. Be explicit about scope and boundaries.]
 
 ## How?
 
-[Technical approach — affected components, code changes, migration steps, rollback strategy if applicable]
+[High-level guidance — affected components and general direction. NOT a detailed implementation plan.]
 
 ## Verification
 
-[Explain how to verify the implementation, e.g., "Create a trial account and check the enabled features in DebugUI. XYZ is enabled."]
+[Up to 4 concrete verification steps.]
 ```
 
 ### Fill Guidance for Tech Debt Stories
 
-- **Why:** Must justify the effort. "Code is messy" is not enough. Explain the risk: "This race condition causes X in production" or "This legacy code blocks migration to Y."
-- **What:** Be precise about boundaries. What files/services/components are touched? What is explicitly out of scope?
-- **How:** Include rollback considerations for risky changes. Mention feature flags if the change can be toggled.
-- **Verification:** Even for internal improvements, define how to verify. "All existing tests pass" is a minimum. Add specific checks for the changed behavior.
+- **Why:** 1 paragraph max. Must justify the effort. "Code is messy" is not enough. Explain the risk: "This race condition causes X in production" or "This legacy code blocks migration to Y."
+- **What:** 1 paragraph max. Be precise about boundaries. What files/services/components are touched? What is explicitly out of scope?
+- **How:** High-level guidance only — state affected components and general approach direction. Do NOT write implementation details, code-level steps, or migration scripts. Include rollback considerations for risky changes. Mention feature flags if the change can be toggled.
+- **Verification:** Maximum 4 steps. Even for internal improvements, define how to verify. "All existing tests pass" is a minimum. Add specific checks for the changed behavior.
 
 ---
 
@@ -90,18 +90,18 @@ Use for stories that investigate systems, explore implementation approaches, or 
 ```
 ## Why?
 
-[What knowledge gap or decision needs research? Why can't we proceed without this research?]
+[One paragraph — what knowledge gap or decision needs research? Why can't we proceed without it?]
 
 ## What?
 
-[Specify what to do in the scope of the research. This is like the acceptance criteria of a business story — concrete steps, not vague exploration.]
+[Concrete steps — like acceptance criteria for a business story. Maximum 3 steps.]
 
 - Step A: [specific investigation or analysis]
 - Step B: [specific investigation or analysis]
 
 ## Expected Outcome
 
-[Specify the desired result of the study:]
+[Up to 3 tangible deliverables:]
 
 - [ ] Confluence page with [specified structure — list the sections]
 - [ ] Presentation to the team
@@ -110,6 +110,6 @@ Use for stories that investigate systems, explore implementation approaches, or 
 
 ### Fill Guidance for Research Stories
 
-- **Why:** Research must have a clear purpose. "Learn about X" is not enough. "We need to decide between X and Y to proceed with [future story]" is better.
-- **What steps:** Each step should be a concrete investigation, not open-ended exploration. "Analyze the ADA API response for account hierarchies" is better than "Look into ADA."
-- **Expected outcome:** At least one tangible deliverable (Confluence page, decision, presentation). Avoid "we'll know more" as an outcome.
+- **Why:** 1 paragraph max. Research must have a clear purpose. "Learn about X" is not enough. "We need to decide between X and Y to proceed with [future story]" is better.
+- **What steps:** Maximum 3 concrete steps. Each step should be a specific investigation, not open-ended exploration. "Analyze the ADA API response for account hierarchies" is better than "Look into ADA."
+- **Expected outcome:** Maximum 3 tangible deliverables (Confluence page, decision, presentation). Avoid "we'll know more" as an outcome.
