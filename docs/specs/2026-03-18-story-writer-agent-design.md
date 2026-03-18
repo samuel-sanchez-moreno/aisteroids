@@ -61,7 +61,7 @@ description: >
    - *Why* does it matter? (customer pain, technical risk, knowledge gap)
    - *Which service(s)* are involved?
    - Type-specific questions (ACs for business, what/how for tech debt, research steps)
-3. **Challenge & refine** — Push back if:
+3. **Challenge & refine** — If the story type is unclear after asking, ask once more with examples to help the user decide. Do not default to a type. Push back if:
    - The "why" is weak or missing
    - Scope is too broad for a single story
    - Acceptance criteria are vague or untestable
@@ -210,6 +210,7 @@ aisteroids/skills/dt-story-refiner/
 ├── SKILL.md                              # PO reviewer persona, gap analysis engine
 ├── references/
 │   ├── review-criteria.md                # DoR checks, template compliance, quality rules
+│   ├── story-templates.md                # same templates (copy from dt-story-writer) — needed for compliance checks
 │   └── domain-context.md                 # same domain knowledge (copy from dt-story-writer)
 ```
 
@@ -269,6 +270,10 @@ description: >
 - Scope: if a story touches 3+ services, consider splitting
 - BAS constraint: any story touching BAS must be hotfix, deprecation, or feature flag only
 
+### references/story-templates.md
+
+Identical copy from dt-story-writer. The refiner needs the full template structure to check compliance — knowing which sections are required (from review-criteria.md) is not enough without knowing what content belongs in each section.
+
 ### references/domain-context.md
 
 Identical copy from dt-story-writer. Maintains the same domain knowledge.
@@ -289,6 +294,10 @@ All skills deployed to 3 locations:
 | `~/.copilot/skills/dt-story-refiner/` | Copilot CLI global access |
 
 Same SKILL.md format works for both Claude Code and Copilot CLI.
+
+**Sync mechanism:** Manual copy. When updating the source of truth in aisteroids, manually copy the updated skill directories to `~/.claude/skills/` and `~/.copilot/skills/`. A future improvement could add an install script, but manual copy is sufficient for 2 skills.
+
+**Shared references:** `domain-context.md` and `story-templates.md` are duplicated across both skills (not symlinked). This is intentional — each skill must be self-contained for independent installation. When updating shared references, update both copies.
 
 ---
 
