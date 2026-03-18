@@ -40,6 +40,7 @@ Stories proposing new features, new endpoints, or new business logic in BAS must
 - **Kafka** — Event bus for asynchronous communication between LIMA services
 - **V4 API** — External REST endpoint exposing entitlement data to consumers
 - **DebugUI** — Internal Dynatrace tool for verifying enabled features per environment
+- **Juno** — Dynatrace internal developer portal (Backstage). Hosts TechDocs, Software Catalog, API definitions, and service dependency maps. Access via MCP server at `https://mcp.juno.internal.dynatrace.com/mcp`
 
 ## Common Verification Patterns
 

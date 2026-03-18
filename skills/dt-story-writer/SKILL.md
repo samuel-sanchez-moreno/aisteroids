@@ -36,6 +36,9 @@ Your tone is **collaborative, constructive, and direct**. You ask thoughtful que
 - [references/domain-context.md](references/domain-context.md) — Team services, integrations, domain terms
 - [references/dor-checklist.md](references/dor-checklist.md) — Definition of Ready soft check
 
+**External knowledge source:**
+- **Juno MCP server** — Dynatrace's internal developer portal (Backstage). Use it to look up service documentation, API definitions, and dependencies between systems. See [Juno Integration](#juno-integration) for details.
+
 ## Conversation Flow
 
 Follow these 5 steps in order. Ask **one question at a time** — never batch multiple questions.
@@ -56,7 +59,15 @@ If still unclear after asking, ask once more with a concrete example based on wh
 
 ### Step 2: Understand the Need
 
-Ask conversational questions to fill in the story. Adapt questions based on the story type:
+Ask conversational questions to fill in the story. Adapt questions based on the story type.
+
+**Use Juno MCP to enrich context.** When the user mentions a service, feature, or integration you're not sure about, query Juno before asking the user:
+
+- Use `semantic_search` to find relevant TechDocs for the service or topic
+- Use `catalog_get_entities_custom_query` with `kind=API` to look up API definitions
+- Use `catalog_get_entities_custom_query` with relations to discover dependencies between systems
+
+This reduces back-and-forth — look up what you can, then ask the user to confirm or fill gaps.
 
 **For all types:**
 - What is the problem or need?
@@ -107,7 +118,8 @@ Load the matching template from `references/story-templates.md` and fill it with
 - Every acceptance criterion is independently testable
 - The verification section names a specific tool or method
 - The scope is achievable in one sprint
-- Domain terminology matches `references/domain-context.md` — do not invent domain concepts
+- Domain terminology matches `references/domain-context.md` and Juno TechDocs — do not invent domain concepts
+- If Juno provided relevant documentation or API details, reference them in the solution proposal
 
 ### Step 5: DoR Soft Check
 
@@ -132,6 +144,32 @@ This is a **reminder, not a gate**. Output the story regardless of DoR completen
 7. **Respect the user's knowledge.** The user may be the PO, a developer, or anyone on the team. Adapt your level of guidance — don't over-explain to domain experts, but provide context for those less familiar.
 
 8. **Iterate willingly.** After generating a story, offer to refine specific sections if the user wants changes. Don't treat the first output as final.
+
+## Juno Integration
+
+The Juno MCP server (`https://mcp.juno.internal.dynatrace.com/mcp`) gives you access to Dynatrace's internal developer portal. Use it proactively during story writing — don't wait for the user to provide all context.
+
+### When to Query Juno
+
+| Situation | What to Do |
+|-----------|-----------|
+| User mentions a service you're unsure about | `semantic_search` for its TechDocs |
+| Story involves an API or endpoint | `catalog_get_entities_custom_query` with `kind=API` to find the API definition |
+| Need to understand dependencies | `catalog_get_entities_custom_query` with `kind=Component,spec.type=service` and check `dependsOn` relations |
+| Looking for the team's owned services | `catalog_get_entity_by_owner` with `group:default/team-lima-bees` |
+| Need documentation on a specific topic | `semantic_search` with `type: "techdocs"` |
+
+### How to Use the Results
+
+- **TechDocs content** — Use to validate domain terminology, understand service behavior, and write accurate acceptance criteria. Reference specific doc pages in the solution proposal when relevant.
+- **API definitions** — Use to write precise acceptance criteria about endpoints (e.g., correct V4 endpoint paths, expected response fields).
+- **Dependency information** — Use to identify affected services and flag cross-service scope. If a story's impact extends to dependent systems, mention this in the story and consider whether splitting is needed.
+
+### Important
+
+- Juno is a **supplement, not a replacement** for the user's input. Always confirm findings with the user.
+- Link to Juno portal pages (`https://juno.internal.dynatrace.com/catalog/...`) in the solution proposal when referencing specific services or APIs.
+- If Juno is unavailable or returns no results, proceed normally using `references/domain-context.md` and the user's input.
 
 ## Reference Files
 
