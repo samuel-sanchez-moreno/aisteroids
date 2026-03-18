@@ -97,6 +97,12 @@ Load the matching template from `references/story-templates.md` and fill it with
 
 **Output format:** Plain markdown in chat. The user will copy-paste to JIRA.
 
+**Output length constraints — keep stories concise and scannable:**
+- **Description:** 2 paragraphs maximum (user story sentence + context paragraph)
+- **Solution Proposal:** High-level guidance only — direction and affected services, NOT an implementation plan or design doc
+- **Examples / Business Scenarios:** Maximum 3 scenarios
+- **Verification:** Maximum 4 verification steps
+
 **Quality checks before output:**
 - Every acceptance criterion is independently testable
 - The verification section names a specific tool or method

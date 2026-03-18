@@ -15,7 +15,7 @@ Use for user stories in the classic sense — new functionality, behavior change
 
 User story: As a [persona], I want [capability] so that [benefit].
 
-[Story draft — detailed narrative describing the change, its context, and what the team needs to build. Be specific about the expected behavior.]
+[One paragraph of context — what is changing and why. Keep it concise.]
 
 ## Acceptance Criteria
 
@@ -27,24 +27,24 @@ User story: As a [persona], I want [capability] so that [benefit].
 
 ## Solution Proposal
 
-[Specify how to cover the ACs — technical approach, affected services, data flow changes, migration steps if needed]
+[High-level guidance — which services are affected and the general direction. This is NOT an implementation plan or design doc.]
 
 ## Examples / Business Scenarios
 
-[Specify examples and/or business scenarios. This is usually good guidance for testing the story.]
+[Up to 3 concrete scenarios that guide testing.]
 
 ## Verification
 
-[Explain how to verify the implementation, e.g., "Create a trial account and check the enabled features in DebugUI. XYZ is enabled."]
+[Up to 4 concrete verification steps.]
 ```
 
 ### Fill Guidance for Business Stories
 
-- **User story sentence:** Identify the persona (developer, operator, account admin) and the concrete benefit
+- **Description:** 2 paragraphs maximum — the user story sentence plus one context paragraph. Do not write a detailed narrative.
 - **Acceptance criteria:** Each AC should be independently testable. Avoid compound criteria ("X and Y work"). Prefer one criterion per behavior.
-- **Solution proposal:** Not a full design doc — just enough for the team to understand the approach. Reference specific services and endpoints.
-- **Examples:** Think about edge cases. What happens with trial accounts? Classic subscriptions? DPS environments?
-- **Verification:** Must be concrete. Name the tool (DebugUI, V4 endpoint, E2E tests) and the expected observation.
+- **Solution proposal:** High-level guidance only — state which services are affected and the general approach direction. Do NOT write implementation details, code-level steps, or design documents. The team figures out the "how" during development.
+- **Examples:** Maximum 3 business scenarios. Focus on the most important cases — think about edge cases like trial accounts, Classic subscriptions, or DPS environments.
+- **Verification:** Maximum 4 steps. Must be concrete — name the tool (DebugUI, V4 endpoint, E2E tests) and the expected observation.
 
 ---
 
