@@ -1,0 +1,89 @@
+{
+  "skill_name": "lima-pr-reviewer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you review PR 1623 in entitlement-service? Branch: feat/LIMA-43001-handle-cluster-delete-event. The PR adds a new SpineEventConsumer for cluster deletion events. The handler creates a GenerationScope.empty() and calls ConsumerResolver.resolve(). The module-info.java was not updated. No test was added for duplicate event processing.",
+      "expected_output": "Review flags missing module-info.java registration as critical/important, notes GenerationScope.empty() ADA call waste, flags missing idempotency test, uses parallel subagents, structured output with file:line refs.",
+      "files": [],
+      "expectations": [
+        "Attempts to fetch the PR diff (via bkt or by asking the user) before forming conclusions",
+        "Searches Juno for LIMA-43001 acceptance criteria",
+        "Dispatches four parallel review subagents (spec/correctness, code quality, security, performance) simultaneously",
+        "Flags missing module-info.java registration for the new SpineEventConsumerFactory",
+        "Flags GenerationScope.empty() with ADA call waste explanation",
+        "Flags missing idempotency test for duplicate event processing",
+        "Every finding includes a file path or PR-WIDE marker",
+        "Output uses the structured format: Summary / Critical Issues / Non-Critical Findings"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Review this diff in the BAS repo. The branch is feat/LIMA-43100-add-license-report-endpoint. The diff adds a new JAX-RS resource class `LicenseReportResource` with a GET endpoint, a new DTO `LicenseReportDto`, and a Quartz job `GenerateLicenseReportJob` that runs every hour.",
+      "expected_output": "Review immediately flags new endpoint and Quartz job as CRITICAL maintenance-only violations, flags cron schedule collision risk, does not approve or downplay.",
+      "files": [],
+      "expectations": [
+        "Flags the new JAX-RS endpoint as a CRITICAL maintenance-only violation",
+        "Flags the new Quartz job as a CRITICAL maintenance-only violation",
+        "Flags the hourly cron schedule for potential collision with TenantLicenseChangeJob (:10/:30/:50) or TenantStatusChangeRequestJob (:00/:20/:40)",
+        "Does NOT approve the PR or frame violations as minor suggestions",
+        "Uses PR-WIDE for the maintenance-only finding",
+        "Output uses the structured format: Summary / Critical Issues"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Please review PR 1641 in entitlement-service (LIMA-43210). The PR modifies AdaPassThroughConfigProvider to read pass-through settings. In the diff, the provider is injected with ADA_READ_CLIENT_ID instead of LPC_ADA_READ_CLIENT_ID. The OAuth2 scope used is ada-account-data-read.",
+      "expected_output": "Review flags wrong ADA client as a correctness bug, uses Juno to validate OAuth2 scope, flags wrong scope, includes file:line refs, dispatches parallel reviews.",
+      "files": [],
+      "expectations": [
+        "Flags ADA_READ_CLIENT_ID vs LPC_ADA_READ_CLIENT_ID as a correctness bug (wrong client for pass-through reads)",
+        "Uses juno_semantic_search to look up ADA OAuth2 scope for LPC pass-through",
+        "Flags the incorrect OAuth2 scope (ada-account-data-read instead of dt0s15.lima-product-configuration-ada-read)",
+        "Includes file:line reference to where the wrong client or scope appears",
+        "Dispatches four parallel review subagents (spec/correctness, code quality, security, performance) simultaneously"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Review PR 287 in lima-bas-adapter (LIMA-43310). The PR adds a new Kafka consumer for account deletion events. The handler calls two DAO methods in sequence: first it sets tenantLicenseSync=false for all tenant licenses, then it deletes the account row. There is no @Transactional or manual transaction demarcation. The module-info.java was updated correctly.",
+      "expected_output": "Review flags missing transaction boundary as CRITICAL, flags idempotency gap, does NOT suggest BAS REST API calls, does not flag correctly-updated module-info.java.",
+      "files": [],
+      "expectations": [
+        "Flags the missing transaction boundary as CRITICAL — partial failure leaves DB inconsistent",
+        "Flags idempotency: event replay after first write succeeds but before second would re-delete or double-set",
+        "Does NOT suggest the handler should call a BAS REST API (LBA uses direct DB access)",
+        "Does not flag the correctly-updated module-info.java as an issue",
+        "Dispatches four parallel review subagents (spec/correctness, code quality, security, performance) simultaneously",
+        "Output uses the structured format with file:line or PR-WIDE markers"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Review PR 1700 in entitlement-service (LIMA-43500). The PR adds a new POST /api/v2/configs/override endpoint. The request body DTO has a String field 'configValue' with no @Valid or @NotNull annotation. The handler writes configValue directly to the DB via MyBatis without null or length checks. No rate limiting. No audit log entry is produced when a config override is written.",
+      "expected_output": "Review flags missing input validation (@Valid/@NotNull), missing audit logging for the config override operation, and dispatches 4 parallel subagents including the new performance sub-agent.",
+      "files": [],
+      "expectations": [
+        "Flags missing @Valid/@NotNull on the request DTO configValue field as a security/input validation issue",
+        "Flags writing unchecked user input directly to DB without null or length checks",
+        "Flags the missing audit log entry for the config override operation as a security compliance gap",
+        "Dispatches four parallel review subagents (spec/correctness, code quality, security, performance) simultaneously",
+        "Security findings appear in the Security Findings section of the review template with OWASP category",
+        "Output uses the structured format with file:line refs"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Review PR 1710 in entitlement-service (LIMA-43600). The PR modifies ConsumerResolver to call AdaClient.getAccountHierarchy() inside a for-loop that iterates over 50 tenant events in a batch. Each call takes approximately 50ms. The results are not cached or deduplicated. A new list endpoint GET /api/v2/configs returns all configs from the DB without any pagination or LIMIT clause.",
+      "expected_output": "Review flags the N+1 ADA calls in loop as a performance issue with magnitude estimate, flags missing pagination on the list endpoint, and includes findings in the Performance Findings section.",
+      "files": [],
+      "expectations": [
+        "Flags ADA API calls inside a loop as a CRITICAL or IMPORTANT performance issue with magnitude estimate (e.g. 50 calls × ~50ms = ~2.5s)",
+        "Flags the missing pagination/LIMIT on the list endpoint as a performance issue",
+        "Suggests caching or deduplicating the ADA hierarchy response to avoid redundant calls",
+        "Dispatches four parallel review subagents including Task D (Performance)",
+        "Performance findings appear in the Performance Findings section of the review template"
+      ]
+    }
+  ]
+}
