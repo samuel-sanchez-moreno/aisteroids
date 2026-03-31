@@ -31,7 +31,7 @@ Detect the repo from the PR URL, cwd, or context:
 
 ### Getting the diff (Bitbucket)
 
-Use `bkt` with the `dt-bitbucket` skill to fetch the PR diff:
+**Load the `dt-bitbucket` skill now** (use the Skill tool with `name: dt-bitbucket`) before running any `bkt` commands. This gives the agent the full `bkt` reference and authentication context.
 
 ```bash
 # Confirm bkt context
@@ -83,14 +83,14 @@ If no Jira MCP is available and Juno returns nothing useful, ask the user:
 
 ---
 
-## Step 3 — Run four parallel review sub-agents
+## Step 3 — Run five parallel review sub-agents
 
-Dispatch all four sub-agents **in a single message** using the Task tool. Do not run them
-sequentially — launch A, B, C, and D simultaneously and wait for all four to return before
+Dispatch all five sub-agents **in a single message** using the Task tool. Do not run them
+sequentially — launch A, B, C, D, and E simultaneously and wait for all five to return before
 synthesising. Each sub-agent receives the diff path and any AC text you collected in Steps 1–2.
 
 ```
-// Launch all four in one message:
+// Launch all five in one message:
 
 Task A — Spec & Correctness:
   Role: Verify every Jira AC is met and flag correctness bugs (wrong logic, race conditions,
@@ -105,8 +105,8 @@ Task A — Spec & Correctness:
   Return: raw bullet list only.
 
 Task B — Code Quality & Conventions:
-  Role: Apply the repo-specific checklist from references/repo-<repo>.md.
-        Flag only real violations — not style preferences unless enforced by Checkstyle/forbiddenApis.
+  Role: Apply repo-specific code quality rules. Flag only real violations — not style preferences
+        unless enforced by Checkstyle/forbiddenApis.
   Input: diff at /tmp/pr-<id>-diff.json (or paste diff), repo name.
   For each finding: severity [CRITICAL/IMPORTANT/MINOR], file:line or PR-WIDE, one-sentence explanation.
   Return: raw bullet list only.
@@ -164,9 +164,38 @@ Task D — Performance:
   For each finding: severity [CRITICAL/IMPORTANT/MINOR], file:line or PR-WIDE, one-sentence
     impact with estimated magnitude where possible (e.g. "50 calls × ~50ms = ~2.5s per batch").
   Return: raw bullet list only. If nothing found, return "No performance issues found."
+
+Task E — Simplicity & Design (Socratic Review):
+  Role: Review the diff through a simplicity-first lens. Challenge unnecessary indirection,
+        duplicated logic, misplaced abstractions, tests that prove nothing, and naming that
+        creates ambiguity. Phrase every finding as a Socratic question that surfaces the
+        reasoning gap — never as a directive. See references/socratic-reviewer-checklist.md
+        for the full checklist, voice guide, and real examples.
+  Input: diff at /tmp/pr-<id>-diff.json (or paste diff).
+  Review dimensions (in priority order):
+    1. Unnecessary indirection — wrappers, adapters, interfaces with a single implementation
+    2. Duplicated logic — structurally identical methods that differ by one parameter or step
+    3. Tests that prove nothing — tests that only verify compiler-checked behaviour
+    4. Naming ambiguity — names that collide with framework/stdlib terms in this context
+    5. Mutable state scope — methods that mutate a passed-in collection vs. returning a new one
+    6. Data edge cases — null semantics, blank values, missing timestamps on updates
+    7. Transaction atomicity — multi-step DB writes without a wrapping transaction
+    8. PR scope discipline — changes to unrelated tests or shared fixtures
+    9. Coupling to dying code — new dependencies on classes scheduled for deletion
+    10. Log severity — ERROR used where WARN is correct (retry still possible)
+    11. MDC context — entity UUIDs missing from MDC at event handler entry points
+    12. Module/package placement — classes in the wrong package or module
+    13. Consistency — minor return type, factory method, or build-config inconsistencies
+  Output format: Bitbucket-style inline comments, one per finding:
+    [UNIFY/SIMPLIFY/QUESTION/SCOPE] `File.java:line` — <Socratic question, with the "why">
+    When the same issue recurs across files, anchor the full comment to the first occurrence
+    and use "[TAG] <OtherFile.java:line> — same" for subsequent ones.
+  Return: inline comment list only. If nothing found, return "No simplicity issues found."
 ```
 
-Wait for all four to finish. Deduplicate overlapping findings (keep the higher severity).
+Wait for all five to finish. Deduplicate overlapping findings (keep the higher severity).
+If Task B and Task E flag the same issue, keep the one with better reasoning — prefer
+Task E's phrasing when the finding is about design or simplicity rather than a rule violation.
 
 ---
 
@@ -174,9 +203,10 @@ Wait for all four to finish. Deduplicate overlapping findings (keep the higher s
 
 **Before writing a single line of the review, build a master finding list:**
 
-1. Collect every bullet from Task A, B, C, and D outputs into a flat list
-2. For each bullet: assign severity, file:line anchor (or PR-WIDE), and source (A/B/C/D)
-3. Deduplicate: if A and B flag the same issue, keep the higher severity and one entry
+1. Collect every bullet from Task A, B, C, D, and E outputs into a flat list
+2. For each bullet: assign severity, file:line anchor (or PR-WIDE), and source (A/B/C/D/E)
+3. Deduplicate: if two tasks flag the same issue, keep the higher severity and one entry;
+   when Task B and Task E overlap on a design issue, prefer Task E's Socratic phrasing
 4. Verify the list is complete — if the list has N items, the review must contain exactly N findings
    (or N-deduped items). **Do not drop findings silently during template assembly.**
 
@@ -192,10 +222,7 @@ sections only when they contain no findings (the template marks which are option
 
 See `references/` directory:
 - `references/review-template.md` — **output template — always fill this in for Step 4**
-- `references/repo-entitlement-service.md` — entitlement-service + LPC pipeline rules
-- `references/repo-bas.md` — BAS maintenance-only rules
-- `references/repo-lima-bas-adapter.md` — lima-bas-adapter Kafka + direct DB rules
-- `references/repo-lima-tenant-config.md` — lima-tenant-config Kafka + config correctness rules
+- `references/socratic-reviewer-checklist.md` — **Task E checklist: simplicity/design lens, voice guide, output format**
 
 ---
 

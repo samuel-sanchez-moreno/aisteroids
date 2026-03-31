@@ -11,6 +11,7 @@ A collection of AI agent skills for software engineering workflows.
 | [dt-service-health-check](skills/dt-service-health-check/) | Kubernetes service health check via Dynatrace `dtctl` — pods, logs, problems, endpoints |
 | [dt-story-refiner](skills/dt-story-refiner/) | PO story reviewer — checks drafts for completeness, DoR compliance, and quality |
 | [dt-story-writer](skills/dt-story-writer/) | PO story writer — generates business, tech debt, and research stories from requirements |
+| [lima-pr-reviewer](skills/lima-pr-reviewer/) | Expert code reviewer for Team LiCoCo services (entitlement-service, lima-bas-adapter, lima-tenant-config, BAS) — parallel sub-agent review with repo-specific checklists |
 
 ## Installation
 
